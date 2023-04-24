@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>price tag</title>
+    <style>
+        .card-price {
+	display: inline-block;
+  
+  width: auto;
+	height: 38px;
+	
+	background-color: #6ab070;
+	-webkit-border-radius: 3px 4px 4px 3px;
+	-moz-border-radius: 3px 4px 4px 3px;
+	border-radius: 3px 4px 4px 3px;
+	
+	border-left: 1px solid #6ab070;
+
+	/* This makes room for the triangle */
+	margin-left: 19px;
+	
+	position: relative;
+	
+	color: white;
+	font-weight: 300;
+	font-size: 22px;
+	line-height: 38px;
+
+	padding: 0 10px 0 10px;
+}
+
+/* Makes the triangle */
+.card-price:before {
+	content: "";
+	position: absolute;
+	display: block;
+	left: -19px;
+	width: 0;
+	height: 0;
+	border-top: 19px solid transparent;
+	border-bottom: 19px solid transparent;
+	border-right: 19px solid #6ab070;
+}
+
+/* Makes the circle */
+.card-price:after {
+	content: "";
+	background-color: white;
+	border-radius: 50%;
+	width: 4px;
+	height: 4px;
+	display: block;
+	position: absolute;
+	left: -9px;
+	top: 17px;
+}
+
+#pentagon {
+    position: relative;
+    width: 54px;
+    border-width: 0 18px 50px;
+    border-style: solid;
+    border-color: red transparent;
+}
+#pentagon:before {
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: 50px;
+    left: -18px;
+border-style: solid;
+border-width: 45px 45px 0 45px;
+border-color: red transparent transparent transparent;
+}
+
+.logo-sponsor{
+    z-index: 1000;
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    width: 36px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+    </style>
+</head>
+<body>
+    <p class="card-price">1250 р.</p>
+
+    <div id="pentagon">
+        <img src="https://cdn3.iconfinder.com/data/icons/picons-social/57/43-twitter-48.png" class="logo-sponsor">
+      </div>
+
+      <svg height="210" width="500">
+        <polygon points="200,10 250,190 160,210" style="fill:lime;stroke:purple;stroke-width:1" />
+      </svg>
+      <polygon points="100, 20 200,180 100,200" style="fill:green;" />
+
+      <polygon points="55,5 55,450 5,450 5,820 260,820 260,850
+                 550,850 550,570 855,570 855,5 55,5"
+         fill="orangered" stroke="black" stroke-width="2" stroke-dasharray="8,4" />
+</body>
+</html>

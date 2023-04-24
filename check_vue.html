@@ -1,0 +1,140 @@
+<html>
+<head>
+<title></title>
+
+<style>
+    .active {
+        background: yellow;
+    }
+</style>
+</head>
+<body>
+    <div id = "vue_instance">
+        <h1>Firstname : {{firstname}}</h1>
+        <h1>Lastname : {{lastname}}</h1>
+        <h1>{{mydetails()}}</h1>
+    </div>
+
+    <div id = "computed_props">
+        City : <input type = "text" v-model = "city" /> <br/><br/>
+        Country : <input type = "text" v-model = "country"/> <br/><br/>
+      
+        <h1>Using computed method : {{getaddress}}</h1>
+    </div>
+    <div id = "computed_props_2">
+        Celsius : <input type = "text" v-model = "celsius">
+        <br> <br>
+        Fahrenheit : <input type = "text" v-model = "fahrenheit">
+    </div>
+
+
+
+    <div id = "classbinding">     //HTML Class binding
+        <div v-bind:class = "{active:isactive}"><b>{{title}}</b></div>
+    </div>
+ 
+        <div id = "databinding">      //Inline CSS binding
+        <div v-bind:style = "{ color: activeColor, fontSize: fontSize + 'px' }">{{title}}</div>
+    </div>
+ 
+    <div id = "formbinding">      //Form element binding
+        <h3>Radio</h3>
+        <input type = "radio" id = "black" value = "Black" v-model = "picked">Black
+        <input type = "radio" id = "white" value = "White" v-model = "picked">White
+        <h3>Radio element clicked : {{picked}} </h3>
+        <hr/>
+        <h3>Select</h3>
+        <select v-model = "languages">
+            <option disabled value = "">Please select one</option>
+            <option>Angular</option>
+            <option>React</option>
+            <option>Vue</option>
+            <option>Vanilla</option>
+        </select>
+        <h3>Framework Selected is : {{ languages }}</h3>
+        <hr/>
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+
+<script>
+var  vm = new Vue({
+   el: '#vue_instance',
+   data: {
+      firstname : "John",
+      lastname  : "Doe",
+      subject    : " GreatLearning VueJS Tutorial"
+   },
+   methods: {
+      mydetails : function() {
+         return "I am "+this.firstname +" "+ this.lastname + " studying " + this.subject;
+      }
+   }
+})
+
+var vm = new Vue({
+   el: '#computed_props',
+   data: {
+    city :"",           //computed property
+    country :"",        //computed property
+      
+   },
+   computed :{
+    getaddress : function(){
+        return this.city +" is in "+ this.country;
+    }
+   }
+})
+
+var vm = new Vue({
+            el: '#computed_props_2',
+            data: {
+            celsius : 0,
+            fahrenheit: 0
+            },
+            methods: {
+            },
+            computed :{
+            },
+            watch : {
+            celsius:function(val) {
+                this.celsius = val;
+                this.fahrenheit = val*1.8 + 32;             },
+            fahrenheit : function (val) {
+                this.celsius = (val-32)/1.8;
+                this.fahrenheit = val;
+            }
+            }
+        });
+
+        var vm = new Vue({
+            el: '#classbinding',
+            data: {
+            title : "HTML BINDING",
+            isactive : true
+            }
+        });
+          
+ var vm = new Vue({
+            el: '#databinding',
+            data: {
+            title : "Inline Style Binding",
+            activeColor: 'blue',
+            fontSize :'30'
+            }
+        });  
+          
+ var vm = new Vue({
+            el: '#formbinding',
+            data: {
+            picked : 'White',
+            languages : "Vanilla"
+            }
+        });         
+
+        
+
+</script>
+
+</body>
+</html>

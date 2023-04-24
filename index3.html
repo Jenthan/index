@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Gallery</title>
+  <style>
+    .image-gallery {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .image-gallery img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Image Gallery</h1>
+    <div class="image-gallery">
+      <img v-for="image in images" :src="image.src" :alt="image.alt" @click="openModal(image)" />
+    </div>
+    <div v-if="selectedImage">
+      <div>
+        <img :src="selectedImage.src" :alt="selectedImage.alt" />
+      </div>
+      <button @click="closeModal">Close</button>
+    </div>
+
+  </div>
+
+  <div class="col">
+    <div class="card-deck">
+        <div class="card">
+            <div class="row">
+                <div class="col">
+                    <div class="row mt-1">
+                        <img src="electronics.jpeg" class="card-img-top" style="height: 40%; margin-left: 8%;" alt="...">
+                    </div>
+                    <div class="row mt-1 mb-1">
+                        <img src="tvproduct.jpg" class="card-img-top" style="height: 40%; margin-left: 8%;" alt="...">
+                    </div>
+                    
+                </div>
+                
+                <div class="col mb-1">
+                    <p class="card-price mt-2">discount 20% </p>
+                    <img src="tv.jpeg" class="card-img-top" style="height: 100%;  margin-left:-5%; width: 161px;" alt="...">
+                </div>
+
+                <div class="triangle-down">
+                    <img src="https://cdn3.iconfinder.com/data/icons/picons-social/57/43-twitter-48.png" class="logo-sponsor">
+                  </div>
+            </div>
+          
+          <div class="card-body">
+            <h5 class="card-title">{discription}</h5>
+            <p class="card-text"> {title}</p>
+            <p class="card-text"><small class="text-muted"><h1>price</h1></small></p>
+            <button class="btn btn-primary">{salecount}</button>
+          </div>
+          
+        </div>   
+    </div>
+</div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        images: [
+          { src: 'electronics.jpeg', alt: 'Image 1' },
+          { src: 'sample.jpeg', alt: 'Image 2' },
+          { src: 'tv.jpeg', alt: 'Image 3' },
+          // Add more images here
+        ],
+        selectedImage: null
+      },
+      methods: {
+        openModal(image) {
+          this.selectedImage = image;
+        },
+        closeModal() {
+          this.selectedImage = null;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Responsive Header with Dropdown</title>
+  <style>
+    /* Header styles */
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-logo {
+      font-size: 24px;
+    }
+
+    .header-menu {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .header-menu a {
+      color: #fff;
+      margin-left: 15px;
+      text-decoration: none;
+    }
+
+    .header-menu .dropdown {
+      position: relative;
+      margin-left: 15px;
+    }
+
+    .header-menu .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: #333;
+      padding: 10px;
+      text-align: right;
+    }
+
+    .header-menu .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+      }
+
+      .header-logo {
+        margin-bottom: 10px;
+      }
+
+      .header-menu {
+        margin-top: 10px;
+        justify-content: center;
+      }
+
+      .header-menu a {
+        margin-left: 0;
+        margin-right: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <div class="header-logo">
+        Logo
+      </div>
+      <nav class="header-menu">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <div class="dropdown">
+          <a href="#">Dropdown</a>
+          <div class="dropdown-content">
+            <a href="#">Option 1</a>
+            <a href="#">Option 2</a>
+            <a href="#">Option 3</a>
+          </div>
+        </div>
+        <a href="#">Contact</a>
+      </nav>
+    </header>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        
+      },
+      methods: {
+        
+      }
+    });
+  </script>
+</body>
+</html>

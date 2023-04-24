@@ -1,0 +1,59 @@
+#app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+    display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+background-color: #fefefe;
+margin: auto;
+padding: 15px;
+border: 1px solid #888;
+width: 218%;
+max-width: 80%;
+height: 522px;
+/* margin: auto; */
+margin-top: 105px;
+align-items: center;
+  }
+
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: -104px;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* Additional styles for making the modal visible */
+  .modal.show {
+    display: block;
+  }
+
+  body {
+    overflow: hidden;
+  }

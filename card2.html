@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Card Image Gallery</title>
+  <!-- Include Vue.js from a CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <style>
+    /* Add custom CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .card {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .card-item {
+      width: 300px;
+      margin: 10px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-item img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .card-item h3 {
+      margin-top: 0;
+    }
+
+    .card-item p {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="container">
+      <h1>Card Image Gallery</h1>
+      <div class="card">
+        <div class="card-item" v-for="item in galleryItems" :key="item.id">
+          <img :src="item.image" alt="Card Image">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Create a new Vue instance
+    new Vue({
+      el: '#app',
+      data: {
+        galleryItems: [
+          { id: 1, title: 'Image 1', description: 'This is image 1', image: 'electronics.jpeg' },
+          { id: 2, title: 'Image 2', description: 'This is image 2', image: 'https://via.placeholder.com/300' },
+          { id: 3, title: 'Image 3', description: 'This is image 3', image: 'https://via.placeholder.com/300' },
+          { id: 4, title: 'Image 4', description: 'This is image 4', image: 'https://via.placeholder.com/300' },
+          { id: 5, title: 'Image 5', description: 'This is image 5', image: 'https://via.placeholder.com/300' },
+          { id: 6, title: 'Image 6', description: 'This is image 6', image: 'https://via.placeholder.com/300' },
+        ]
+      }
+    });
+  </script>
+</body>
+
+</html>

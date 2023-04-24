@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Search</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.2.19/dist/vue.global.min.js"></script>
+</head>
+<body>
+  <div id="newapp">
+    <div id="app">
+      <label for="search">Search:</label>
+      <input type="text" id="search" v-model="query">
+      <ul>
+        <li v-for="product in filteredProducts" :key="product.id">
+          {{ product.name }} - {{ product.price }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          products: [
+            { id: 1, name: 'Product 1', price: 10 },
+            { id: 2, name: 'Product 2', price: 20 },
+            { id: 3, name: 'Product 3', price: 30 },
+            { id: 4, name: 'Product 4', price: 40 },
+            { id: 5, name: 'Product 5', price: 50 }
+          ],
+          query: ''
+        }
+      },
+      computed: {
+        filteredProducts() {
+          if (this.query) {
+            return this.products.filter(product => {
+              const lowerQuery = this.query.toLowerCase();
+              return product.name.toLowerCase().includes(lowerQuery) || 
+                product.price.toString().includes(lowerQuery);
+            });
+          } else {
+            return this.products;
+          }
+        }
+      }
+    });
+    app.mount('#app');
+  
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Popup Registration and Login Form</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+      /* Styles for the popup form */
+      .popup-form {
+        position: absolute;
+        top: 50px;
+        right: 0;
+        width: 300px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        display: none;
+      }
+
+      /* Styles for the user icon */
+      .user-icon {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-color: #ccc;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li>
+            <!-- User icon that will display the popup form when clicked -->
+            <div class="user-icon" @click="showPopupForm = !showPopupForm"></div>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Popup form that will be displayed when the user clicks on the user icon -->
+      <div class="popup-form" v-if="showPopupForm">
+        <!-- Registration and login form HTML code -->
+      </div>
+    </div>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            showPopupForm: false
+          }
+        }
+      }).mount('#app');
+    </script>
+  </body>
+</html>

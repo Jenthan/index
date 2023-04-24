@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Gallery</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.2.19/dist/vue.global.min.js"></script>
+  <style>
+    .image-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .image-gallery img {
+      width: 200px;
+      height: 200px;
+      margin: 10px;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .pagination button {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      margin: 0 5px;
+      border: none;
+      background-color: #ddd;
+      font-size: 16px;
+      color: #555;
+      cursor: pointer;
+    }
+    .pagination button.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="app-category">
+    <div class="image-gallery">
+      <div v-for="(image, index) in displayedImages" :key="index">
+        <img :src="image">
+      </div>
+    </div>
+    <div class="pagination">
+      <button v-for="page in pages" :key="page" :class="{ active: currentPage === page }" @click="currentPage = page">{{ page }}</button>
+    </div>
+  </div>
+  <script>
+    const app_category = Vue.createApp({
+      data() {
+        return {
+          images: [
+            'image1.jpg',
+            'image2.jpg',
+            'image3.jpg',
+            'image4.jpg',
+            'image5.jpg',
+            'image6.jpg',
+            'image7.jpg',
+            'image8.jpg',
+            'image9.jpg',
+            'image10.jpg',
+            'image11.jpg',
+            'image12.jpg',
+            'image13.jpg',
+            'image14.jpg',
+            'image15.jpg',
+            'image16.jpg',
+            'image17.jpg',
+            'image18.jpg',
+            'image19.jpg',
+            'image20.jpg'
+          ],
+          currentPage: 1,
+          itemsPerPage: 5
+        }
+      },
+      computed: {
+        totalPages() {
+          return Math.ceil(this.images.length / this.itemsPerPage);
+        },
+        pages() {
+          const pages = [];
+          for (let i = 1; i <= this.totalPages; i++) {
+            pages.push(i);
+          }
+          return pages;
+        },
+        displayedImages() {
+          const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+          const endIndex = startIndex + this.itemsPerPage;
+          return this.images.slice(startIndex, endIndex);
+        }
+      }
+    });
+    app_category.mount('#app-category');
+  </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<html>
+   <head>
+    <title>VueJs Instance</title>
+    <script type = "text/javascript" src = "js/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+    <style>
+      .card-header:first-child {
+  border-radius: calc(1rem - 1px) calc(1rem - 1px) 0 0;
+}
+.card-header {
+  position: relative;
+  padding: 2rem 2rem;
+  border-bottom: none;
+  background-color: white;
+  box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+  z-index: 2;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+  border-radius: 1rem;
+}
+.bg-gray-100 {
+  background-color: #f8f9fa !important;
+}
+body{
+  font-family: 'Poppins'!important;
+}
+.text-primary {
+  color: #4650dd !important;
+}
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+ 
+  font-weight: 700;
+  line-height: 1.2;
+}
+.text-muted {
+  color: #6c757d !important;
+}
+.lead {
+  font-size: 1.125rem;
+  font-weight: 300;
+}
+.text-sm {
+  font-size: .7875rem !important;
+}
+h3, .h3 {
+  font-size: 1.575rem;
+}
+.page-holder {
+  display: flex;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: calc(100vh - 72px);
+ 
+  flex-wrap: wrap;
+}
+a {
+  color: #4650dd!important;
+  text-decoration: underline!important;
+  cursor: pointer;
+}
+    </style>
+   </head>
+   <body>
+    <div id="check-login">
+      <div class="page-holder align-items-center py-4 bg-gray-100 vh-100">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-6 px-lg-4"  v-if="userlogin">
+              <div class="card">
+                <div class="card-header px-lg-5">
+                  <div class="card-heading text-primary">Jassa Login</div>
+                </div>
+                <div class="card-body p-lg-5">
+                  <h3 class="mb-4">Hi, welcome back! ??</h3>
+                  <p class="text-muted text-sm mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                  <form id="loginForm" action="index.html">
+                    <div class="form-floating mb-3">
+                      <input class="form-control" id="floatingInput" type="email" placeholder="name@example.com" required>
+                      <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class="form-control" id="floatingPassword" type="password" placeholder="Password" required>
+                      <label for="floatingPassword">Password</label>
+                    </div>
+                    <div class="form-check mb-3">
+                      <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                      <label class="form-check-label" for="remember">Remember me</label>
+                    </div>
+                    <button class="btn btn-primary" type="button">Submit</button>
+                  </form>
+                </div>
+                <div class="card-footer px-lg-5 py-lg-4">
+                  <div class="text-sm text-muted">Don't have an account? <a @click="user_register()">Register</a>.</div>
+                </div>
+              </div>
+            </div>
+            <!-- register -->
+             <div class="col-lg-6 px-lg-4" v-if="userregister">
+              <div class="card">
+                <div class="card-header px-lg-5">
+                  <div class="card-heading text-primary">Jassa Register</div>
+                </div>
+                <div class="card-body p-lg-5">
+                  <h3 class="mb-4">Get started with Jassa</h3>
+                  <p class="text-muted text-sm mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                  <form action="index.html">
+                    <div class="form-floating mb-3">
+                      <input class="form-control" id="username" type="email" placeholder="name@example.com" required>
+                      <label for="username">Username</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class="form-control" id="floatingInput" type="email" placeholder="name@example.com" required>
+                      <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class="form-control" id="floatingPassword" type="password" placeholder="Password" required>
+                      <label for="floatingPassword">Password</label>
+                    </div>
+                    <div class="form-check mb-3">
+                      <input class="form-check-input" type="checkbox" name="agree" id="agree">
+                      <label class="form-check-label" for="agree">I agree with the <a href="#">Terms & Conditions</a>.</label>
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-primary" id="regidter" type="button" name="registerSubmit">Register</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="card-footer px-lg-5 py-lg-4">
+                  <div class="text-sm text-muted">Already have an account? <a @click="user_login()">Login</a>.</div>
+                </div>
+              </div>
+            </div>
+           <div class="col-lg-6 col-xl-5 ms-xl-auto px-lg-4 text-center text-primary"><img class="img-fluid mb-4" width="300" src="https://therichpost.com/wp-content/uploads/2021/06/login_page_image.png" alt="" style="transform: rotate(10deg)">
+              <h1 class="mb-4">Therichpost.com <br class="d-none d-lg-inline">free code  snippets.</h1>
+              <p class="lead text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+        import "bootstrap/dist/css/bootstrap.min.css";
+
+        const app_category = Vue.createApp({
+    data() {
+      return {
+        
+      }
+    },
+    methods: {
+      //user login button click event
+      user_login()
+      {
+        this.userlogin = true,
+        this.userregister = false
+      },
+      //user register button click event
+       user_register()
+      {
+        this.userlogin = false,
+        this.userregister = true
+      }
+    },
+      data: function() {
+  return {
+    userlogin:true,
+    userregister:false
+  }
+}  
+  });
+  app_category.mount('#check-login');
+
+      </script>
+   </body>
+</html>

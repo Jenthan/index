@@ -1,0 +1,136 @@
+const apps = Vue.createApp({
+  data() {
+    return {
+      selectedCountry: '',
+      countries: [],
+      countryDetails: {},
+      isLoading: true,
+      showPopup: false,
+      dropdownOpen: false,
+      selectedLanguage: "English", // Set default selection to "English"
+      languages: ["German", "Spanish", "French", "English", "Japanese", "Korean", "Mandarin", "Russian"],
+      cities: {
+        'LK': [
+          {id: 1, name:'Jaffna'},
+          {id: 2, name:'Kandy'}, 
+          {id: 3, name:'Galle'},
+          {id: 4, name:'Bentota'},
+          {id: 5, name:'Dampulla'},
+          {id: 6, name:'Trincomalee'},
+          {id: 7, name:'Ratnapura'}, 
+          {id: 8, name:'Batticaloa'},
+          {id: 9, name:'Colombo'},
+          {id: 10, name:'Ampara'},
+          {id: 11, name:'Kilinochchi'},
+          {id: 12, name:'Kandy'}, 
+          {id: 13, name:'Galle'},
+          {id: 14, name:'Bentota'},
+          {id: 15, name:'Dampulla'},
+          {id: 16, name:'Polannaruwa'},
+          {id: 17, name:'Mullaitivu'}, 
+          {id: 18, name:'Vavuniya'},
+          {id: 19, name:'kaluththurai'},
+          {id: 10, name:'puththalam'},
+      ],
+        'NL': [
+          {id: 1, name:'Amsterdam'},
+          {id: 2, name:'Utrecht'}, 
+          {id: 3, name:'Rotterdam'},
+          {id: 4, name:'Almere'},
+          {id: 5, name:'Breda'},
+          {id: 6, name:'Zaanstad'},
+          {id: 7, name:'Arnhem'}, 
+          {id: 8, name:'Zwolle'},
+          {id: 9, name:'Heerlen'},
+          {id: 10, name:'Zwolle'},
+          {id: 11, name:'Ede'},
+          {id: 12, name:'Gouda'}, 
+          {id: 13, name:'Delft'},
+          {id: 14, name:'Heerlen'},
+          {id: 15, name:'Deventer'},
+          {id: 16, name:'Zaandam'},
+          {id: 17, name:'Kampen'}, 
+          {id: 18, name:'Sittard'},
+          {id: 19, name:'kerkrade'},
+          {id: 20, name:'Zutphen'},
+          
+        ],
+      },
+
+      galleryItems: [
+        { id: 1,city_id:1, name: 'cake', price: 250, title:'Healthy Baking products here',image:'images/bakery-1.jpeg',discount:20 },
+        { id: 2,city_id:1, name: 'Earphone', price: 250, title:'This is first product',image: 'images/earphone.png',discount:10 },
+        { id: 3,city_id:1, name: 'Car', price: 25000000, title:'Good Condition vechiles are here', image: 'images/car-1.jpeg',discount:8 },
+        { id: 4,city_id:1, name: 'Soild Restorant', price: 250000, title:'Best service here', image: 'images/hotel-1.jpeg',discount:3 },
+        { id: 5,city_id:2, name: 'Laptop', price: 5000, title:'Laptops Repairing', image: 'images/laptop.png',discount:25 },
+        { id: 6,city_id:2, name: 'Mathan Restorant', price: 5000, title:'High quality foods', image: 'images/res-1.jpeg',discount:30 },
+        { id: 7,city_id:3, name: 'Thai foods', price: 5000, title:'Thailand foods are available', image: 'images/res-2.jpeg',discount:30 },
+        { id: 8,city_id:4, name: 'chainess Resoart', price: 9999, title:'Teast Chiness healthy foods', image: 'images/res-3.jpeg',discount:30 },
+        { id: 9,city_id:4, name: 'Indian Resoart', price: 2500, title:'Indian style foods avilable with cheep price', image: 'images/res-5.jpeg',discount:30 },
+        { id: 10,city_id:5, name: 'New Resoart', price: 2500, title:'All country style foods avilable with cheep price', image: 'images/res-4.jpeg',discount:30 },
+        { id: 11,city_id:5, name: 'Beach Resoart', price: 10000, title:'Very Beautiful Beach resoart', image: 'images/tur-1.jpeg',discount:30 },
+        { id: 12,city_id:5, name: 'I-watch', price: 1000, title:'Very Beautiful Watches selling and repaire', image: 'images/watch3.png',discount:30 },
+      ],
+      selectedCityId: 1,
+    };
+  },
+  methods: {
+    async fetchIPCountry() {
+      try {
+        const response = await axios.get('https://ipapi.co/json');
+        const countryCode = response.data.country_code;
+        this.selectedCountry = countryCode;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async fetchCountryDetails() {
+      try {
+        const response = await axios.get(`https://restcountries.com/v2/alpha/${this.selectedCountry}`);
+        this.countryDetails = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async fetchCountries() {
+      try {
+        const response = await axios.get('https://restcountries.com/v2/all');
+        this.countries = response.data.map((country) => ({
+          name: country.name,
+          alpha2Code: country.alpha2Code,
+        }));
+        await this.fetchIPCountry();
+        await this.fetchCountryDetails();
+        this.isLoading = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    toggleDropdown() {
+      this.dropdownOpen = !this.dropdownOpen;
+      if (this.dropdownOpen && this.selectedCities) {
+        this.showPopup = true;
+      } else {
+        this.showPopup = false;
+      }
+    },
+    selectCity(cities) {
+    // console.log(cities.id);
+      this.selectedCityId = cities;
+    }
+  },
+  computed:{
+    selectedCities: function () {
+      return this.cities[this.selectedCountry] || [];
+    },
+    filteredgalleryItems() {
+     // console.log(this.selectedCityId);
+      return this.galleryItems.filter(item => item.city_id == this.selectedCityId)
+    }
+  },
+  mounted() {
+    this.fetchCountries();
+  },
+});
+
+apps.mount('#apps');

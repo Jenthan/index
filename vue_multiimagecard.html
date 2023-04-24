@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue.js Card Gallery Example</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+
+  <div id="app">
+    <div class="gallery">
+      <div class="card" v-for="card in cards" :key="card.id">
+        <h2>{{ card.title }}</h2>
+        <div class="images">
+          <img v-for="image in card.images" :src="image.url" :alt="image.alt" :key="image.id">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        cards: [
+          {
+            id: 1,
+            title: 'Card 1',
+            images: [
+              {
+                id: 1,
+                url: 'earphone.png',
+                alt: 'Image 1-1'
+              },
+              {
+                id: 2,
+                url: 'electronics.jpeg',
+                alt: 'Image 1-2'
+              },
+              {
+                id: 3,
+                url: 'tv.jpeg',
+                alt: 'Image 1-3'
+              }
+            ]
+          },
+          {
+            id: 2,
+            title: 'Card 2',
+            images: [
+              {
+                id: 4,
+                url: 'tvproduct.jpg',
+                alt: 'Image 2-1'
+              },
+              {
+                id: 5,
+                url: 'earphone.png',
+                alt: 'Image 2-2'
+              },
+              {
+                id: 6,
+                url: 'tv.jpeg',
+                alt: 'Image 2-3'
+              }
+            ]
+          }
+        ]
+      }
+    });
+  </script>
+
+  <style>
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .card {
+      width: 300px;
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid black;
+    }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin: 5px;
+    }
+  </style>
+
+</body>
+</html>

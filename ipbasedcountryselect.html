@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vue IP-Based Country Selection</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Country Selection</h1>
+      <p>Select your country:</p>
+      <select v-model="selectedCountry" @change="updateSelectedCountry">
+        <option v-for="(country, index) in countries" :key="index" :value="country.code">
+          {{ country.name }}
+        </option>
+      </select>
+    </div>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            selectedCountry: '',
+            countries: [],
+          };
+        },
+        methods: {
+          async updateSelectedCountry() {
+            try {
+              const response = await axios.get('https://ipapi.co/json');
+              const countryCode = response.data.country_code;
+              this.selectedCountry = countryCode;
+            } catch (error) {
+              console.log(error);
+            }
+          },
+          async fetchCountries() {
+            try {
+              const response = await axios.get('https://restcountries.com/v2/all');
+              this.countries = response.data.map((country) => ({
+                name: country.name,
+                code: country.alpha2Code,
+              }));
+              await this.updateSelectedCountry();
+            } catch (error) {
+              console.log(error);
+            }
+          },
+        },
+        mounted() {
+          this.fetchCountries();
+        },
+      });
+
+      app.mount('#app');
+    </script>
+  </body>
+</html>

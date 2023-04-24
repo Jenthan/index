@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Country-Based Cities</title>
+  <!-- Include Vue.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+   
+
+  <div id="app">
+    <h1>Country-Based Cities</h1>
+        <select v-model="selectedCountry">
+        <option disabled value="">Select a country</option>
+        <option v-for="country in countries" :value="country">{{ country }}</option>
+        </select>
+        <ul v-if="selectedCities.length">
+            <li v-for="city in selectedCities">{{ city }}</li>
+        </ul>
+        <p v-else>No cities to display</p>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        countries: ['USA', 'Canada', 'Mexico'],
+        cities: {
+          'USA': ['New York', 'Los Angeles', 'Chicago'],
+          'Canada': ['Toronto', 'Montreal', 'Vancouver'],
+          'Mexico': ['Mexico City', 'Guadalajara', 'Monterrey']
+        },
+        selectedCountry: ''
+      },
+      computed: {
+        selectedCities: function () {
+          return this.cities[this.selectedCountry] || [];
+        }
+      }
+    });
+  </script>
+</body>
+</html>

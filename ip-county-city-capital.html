@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vue IP-Based Country Capital Selection</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@next"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="apps">
+      <h1>Country Capital Selection</h1>
+      <p>Select your country:</p>
+      <select v-model="selectedCountry" @change="fetchCountryDetails">
+        <option v-for="(country, index) in countries" :key="index" :value="country.alpha2Code">
+          {{ country.name }}
+        </option>
+      </select>
+      <p v-if="selectedCountry">{{ countryDetails.capital }}</p>
+    </div>
+
+    <script>
+      const apps = Vue.createApp({
+        data() {
+          return {
+            selectedCountry: '',
+            countries: [],
+            countryDetails: {},
+          };
+        },
+        methods: {
+          async fetchIPCountry() {
+            try {
+              const response = await axios.get('https://ipapi.co/json');
+              const countryCode = response.data.country_code;
+              this.selectedCountry = countryCode;
+            } catch (error) {
+              console.log(error);
+            }
+          },
+          async fetchCountryDetails() {
+            try {
+              const response = await axios.get(`https://restcountries.com/v2/alpha/${this.selectedCountry}`);
+              this.countryDetails = response.data;
+            } catch (error) {
+              console.log(error);
+            }
+          },
+          async fetchCountries() {
+            try {
+              const response = await axios.get('https://restcountries.com/v2/all');
+              this.countries = response.data.map((country) => ({
+                name: country.name,
+                alpha2Code: country.alpha2Code,
+              }));
+              await this.fetchIPCountry();
+              await this.fetchCountryDetails();
+            } catch (error) {
+              console.log(error);
+            }
+          },
+        },
+        mounted() {
+          this.fetchCountries();
+        },
+      });
+
+      apps.mount('#apps');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Language Selection</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <label for="languages">Select a language:</label>
+      <select id="languages" v-model="selectedLanguage">
+        <option v-for="(language, index) in languages" :key="index" :value="language">{{ language }}</option>
+      </select>
+      <p>You have selected {{ selectedLanguage }}.</p>
+    </div>
+
+    <script>
+      new Vue({
+  el: "#app",
+  data: {
+    selectedLanguage: "English", // Set default selection to "English"
+    languages: ["German", "Spanish", "French", "English", "Japanese", "Korean", "Mandarin", "Russian"]
+       }
+   })
+    </script>
+  </body>
+</html>

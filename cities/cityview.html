@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Vue App</title>
+  </head>
+  <body>
+    <div id="apps">
+      <select class="form-control" v-model="selectedCountry" @change="fetchCountryDetails" v-if="!isLoading">
+        <option v-for="(country, index) in countries" :key="index" :value="country.alpha2Code">
+          {{ country.name }}
+        </option>
+      </select>
+      <select class="form-select" name="cities" id="capital" v-if="!isLoading">
+        <option v-if="selectedCountry">{{ countryDetails.capital }}</option>
+      </select>
+      <button class="toggle-button" @click="toggleDropdown">{{ dropdownOpen ? '▲' : '▼' }}</button>
+      <p>{{ countryDetails.name }}</p>
+
+      <!-- Popup Window -->
+      <div v-if="showPopup" class="popup">
+        <ul v-if="selectedCities.length">
+          <li v-for="city in selectedCities" :key="city">{{ city }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.19/dist/vue.global.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      const apps = Vue.createApp({
+        data() {
+          return {
+            selectedCountry: '',
+            countries: [],
+            countryDetails: {},
+            isLoading: true,
+            showPopup: false,
+            dropdownOpen: false,
+            cities: {
+              'LK': ['New York', 'Los Angeles', 'Chicago'],
+              'Canada': ['Toronto', 'Montreal', 'Vancouver'],
+              'Mexico': ['Mexico City', 'Guadalajara', 'Monterrey']
+            },
+          };
+        },
+        methods: {
+          async fetchIPCountry() {
+            try {
+              const response = await axios.get('https://ipapi.co/json');
+              const countryCode = response.data.country_code;
+              this.selectedCountry = countryCode;
+            } catch (error) {
+              console.log(error);
+            }
+          },
+          async fetchCountryDetails() {
+            try {
+              const response = await axios.get(`https://restcountries.com/v2/alpha/${this.selectedCountry}`);
+              this.countryDetails = response.data;
+            } catch (error) {
+              console.log(error);
+            }
+          },
+          async fetchCountries() {
+            try {
+              const response = await axios.get('https://restcountries.com/v2/all');
+              this.countries = response.data.map((country) => ({
+                name: country.name,
+                alpha2Code: country.alpha2Code,
+              }));
+              await this.fetchIPCountry();
+              await this.fetchCountryDetails();
+              this.isLoading = false;
+            } catch (error) {
+              console.log(error);
+            }
+          },
+          toggleDropdown() {
+            this.dropdownOpen = !this.dropdownOpen;
+            if (this.dropdownOpen && this.selectedCities) {
+              this.showPopup = true;
+            } else {
+              this.showPopup = false;
+            }
+          }
+        },
+        computed:{
+          selectedCities: function () {
+            return this.cities[this.selectedCountry] || [];
+          }
+        },
+        mounted() {
+          this.fetchCountries();
+        },
+      });
+
+      apps.mount('#apps');
+    </script>
+  </body>
+</html
